@@ -1,0 +1,49 @@
+---
+import type { CollectionEntry } from "astro:content"
+
+interface Props {
+  post: CollectionEntry<"post">
+}
+
+const { post } = Astro.props
+
+const { data, slug } = post
+---
+
+<a
+  href={`/posts/${slug}`}
+  class="group flex cursor-pointer flex-col items-center justify-center md:flex-row md:space-x-16"
+>
+  <div
+    class="grid w-full flex-none place-items-center overflow-hidden rounded-lg md:w-auto"
+  >
+    <div class="relative w-full">
+      <img
+        alt="The Thumbnail"
+        src={data.image}
+        loading="lazy"
+        class="z-20 h-48 w-full rounded-xl bg-white object-contain"
+      />
+    </div>
+  </div>
+  <div
+    class="mt-8 flex w-full flex-1 flex-col justify-between gap-y-1.5 py-2 md:mt-0"
+  >
+    <div>
+      <p class="font- text-lg text-black/70 dark:text-white/70 md:text-lg">
+        {data.category}
+      </p>
+      <p
+        class="text-balance text-3xl font-bold transition duration-300 group-hover:text-blue-500 md:text-4xl"
+      >
+        {data.title}
+      </p>
+      <p class="py-4 text-base md:text-lg">
+        {data.description}
+      </p>
+    </div>
+    <p class="mt-2 text-sm font-medium text-black/70 dark:text-white/70">
+      {Intl.DateTimeFormat("us-en", {}).format(new Date(data.date))}
+    </p>
+  </div>
+</a>
